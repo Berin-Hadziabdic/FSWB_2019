@@ -5,16 +5,22 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
+		<!-- I used https://www.w3schools.com/css/tryit.asp?filename=trycss_table_striped for styling tr-->
 		<style type="text/css">
-
+			.header
+			{
+				background-color: black;
+				color:white;
+			}
+			tr:nth-child(even) {background-color: #cccccc;}
 		</style>
 	</head>
 	<body>
 		<table border="1">
 			<tr>
-				<th>first</th>
-				<th>second</th>
-				<th>third</th>
+				<th class="header">first</th>
+				<th class="header">second</th>
+				<th class="header"> third</th>
 			</tr>
 			<tr>
 				<td>1.1</td>
