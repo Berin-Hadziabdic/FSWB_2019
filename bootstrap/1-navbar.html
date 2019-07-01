@@ -13,10 +13,57 @@
 		<style type="text/css">
 			.navbar {
 				margin-bottom:30px;
+				background-color: #343a40;
+				color:white;
+				flex-direction: row;
+				justify-items: left;
 			}
+
+			.navbar-nav
+			{
+				flex-direction: row;
+				align-items:center;
+				justify-items: center;
+				height: 40px;
+			}
+
+			.firstNavItem
+			{
+				font-size: 20px;
+				margin-right: 24px;
+			}
+
+			.secondNavItem
+			{
+				margin-right:16px;
+			}
+
+			.content
+			{
+				padding-left:55px;
+			}
+
+			.fontColor
+			{
+				color:#757a7f;
+			}
+
 		</style>
 	</head>
 	<body>
-		
+		<nav class="navbar navbar-expand-lg navbar-light bg-dark nav">		
+				<a class="firstNavItem">hello world</a>
+				<div>
+					<ul class="navbar-nav">
+						<li class="secondNavItem"><a>home</a></li>
+						<li class="secondNavItem fontColor"><a>about</a></li>
+						<li class="fontColor"><a>contact</a></li>
+					</ul>
+				</div>
+		</nav>
+		<div class="content">
+			<h1>this is a header</h1>
+			<p>this is a paragraph with some text.</p>
+		</div>
 	</body>
 </html>
