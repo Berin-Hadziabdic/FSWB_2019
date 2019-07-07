@@ -10,17 +10,54 @@
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 		<style type="text/css">
 			body {
 				padding-top:20px;
 			}
+
+			.nudge
+			{
+				padding-top:4px;
+			}
+
+			.strip-spacer
+			{
+				margin-right:0px;
+				padding-right:0px;
+			}
+
+			.nudge-left
+			{
+				margin-left:-8px;
+			}
+			
+			.margin-left
+			{
+				margin-left:-1px;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<!-- use an inline form to accomplish the horizontal layout. -->
+			<form class="form-inline">
+				<div class="input-group">  
+					<input type="text" class="form-control nudge" placeholder="amount" >
+					
+					<span class="input-group-text mr-2 margin-left">
+						<i class="fa fa-usd"></i>
+					</span>
+
+					<button class="btn btn-primary mr-2">
+						<i class="fa fa-shopping-cart"></i>
+					</button>
+
+					<button class="btn btn-primary mr-2">
+							<i class="fa fa-trash"></i>
+					</button>
+			   </div>
+			</form>
 		</div>
 	</body>
 </html>

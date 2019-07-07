@@ -27,11 +27,74 @@
 			.form-check-label {
 				line-height:1.75;
 			}
+
+			.left-margin
+			{
+				margin-left: 135px !important;
+			}
+
+			.button-placement
+			{
+				grid-column-start: 2 !important;
+			}
+
+
+		
 		</style>
 	</head>
 	<body>
-		<div class="container">
-			<!-- use col-sm-2 as well as col-sm-8 in the exercises, just like in the examples in the slides. -->
+		<div class="container ">
+				<form class=" ">
+				 	<div class="form-group row">
+						<label for="inputEmail" class="col-sm-2 col-form-label">name:</label>
+						<div class="col-sm-8">
+							<input class="form-control" id="exampleInputPassword1">
+						</div>
+					</div>
+
+					<div class="form-group row">
+							<label for="inputEmail" class="col-sm-2 col-form-label">gender:</label>
+									<div class="col-sm-10">
+									<div class="form-check form ">
+											<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked/>
+											<label class="radio-inline control-label no-left-margin form-check-label" for="gridRadios1">male</label>
+									</div>	
+
+									<div class="form-check form form-check-label">
+										<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked/>
+										<label class="radio-inline control-label no-left-margin form-check-label" for="gridRadios1">female</label>
+									</div>
+									
+									<div class="form-check form form-check-label">
+										<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked/>
+										<label class="radio-inline control-label no-left-margin form-check-label" for="gridRadios1" checked>other</label>
+									</div>														
+							</div>
+					</div>
+
+					<div class="form-group row">
+							<label for="inputEmail" class="col-sm-2 col-form-label">major:</label>
+							<div class="col-sm-8">
+								<select class="form-control custom-select" multiple size="3">
+									<option>math</option>
+									<option selected>computer science</option>
+									<option>physics</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="inputEmail" class="col-sm-2 col-form-label">notes:</label>
+								<div class="col-sm-8">
+									<textarea class="form-control"></textarea>
+								</div>
+						</div>
+
+						<div class="form-group row">
+								<div class="left-margin">
+										<input class="btn btn-primary" type="submit" value="submit">
+								</div>
+						</div>
+				</form>
 		</div>
 	</body>
 </html>
