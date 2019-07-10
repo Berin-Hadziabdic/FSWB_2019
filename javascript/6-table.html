@@ -9,15 +9,64 @@
 		<div id="output">output</div>
 
 		<script type="text/javascript">
-			var functionCreate = function(strInput) {
+
+			var rows = []
+			
+			
+			function parse(arg)
+			{
+				var row = [] // this represents a row to be added to the rows object
+
+				for(var i = 0; i < arg.length; i++)
+				{
+					if(arg[i] != ',' && arg[i] !== '\n')
+					{
+						row.push(arg[i])
+					}
+					else if( arg[i] == '\n')
+					{
+						rows.push(row) //adding the parsed row
+						row = []	//reset row		 
+					}
+				}
+			}
+
+			function makeTable(tableElement)
+			{
+				var row_reference;
+
+				for(var row in rows)
+				{
+					let rowElement = document.createElement("TR");
+					row_reference = rows[row]
+					for(var charIndex in row_reference)
+					{
+						let dataElement = document.createElement("TD");
+						dataElement.innerHTML = row_reference[charIndex];
+						rowElement.appendChild(dataElement)
+
+					}
+
+					tableElement.appendChild(rowElement)
+				}
+			}
+
+
+			 var functionCreate  = function(strInput) {
 				// create a html table that represents the csv given in strInput set the content of the output div to this html table
 				// you can either create a string that represents the html and use innerHTML to set it or you can use createElement / appendChild
 				// should this function be called multiple times, the output div should only contain the table of the most recent call
 
-				document.getElementById('output').innerHTML = '';
+				var table = '<table id="table" border="1"> </table>' //our table
+				document.getElementById('output').innerHTML = table; // insert table into dom
+				table =  document.getElementById('table'); // get table
+				
+				parse(strInput) //parse str Input
+				makeTable(table)
 			};
 
-			functionCreate('a,b,c\n1,2,3\n'); // the new line at the end should not make a difference
+
+window.onload = function() { functionCreate('a,b,c\n1,2,3\n')}
 			
 			// expected table for functionCreate('a,b\n'):
 			//   <table border="1">
