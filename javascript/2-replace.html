@@ -9,6 +9,13 @@
 			var functionReplace = function(strInput) {
 				// return strInput with 'quick' replaced by 'sly' and 'lazy' replaced by 'sharp', regardless of the case of the letters
 
+				strInput = strInput.replace(/[q|Q][u|U][i|I][c|C][k|K]/g,"sly");
+				strInput = strInput.replace(/[l|L][a|A][z|Z][y|Y]/g,"sharp");
+
+
+
+
+				
 				// note that you will have to use a regexp for this task
 				// using strInput.split('quick').join('sly') is commonly suggested for doing string replacement
 				// this will not work this exercise though, as the matching is required to be case insensitive

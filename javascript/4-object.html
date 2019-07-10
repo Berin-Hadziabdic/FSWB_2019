@@ -9,11 +9,11 @@
 			var objectStrings = {};
 
 			var functionInsert = function(strKey, strValue) {
-				// insert the property with strKey and strValue into objectStrings
+				objectStrings[strKey] = strValue
 			};
 
 			var functionDelete = function(strKey) {
-				// remove the property with strKey from objectStrings
+				delete objectStrings[strKey];
 			};
 
 			var functionLookup = function(strKey) {
@@ -22,13 +22,33 @@
 				// objectStrings might not contain strKey
 				// should this be the case, return an empty string
 
-				return '';
+				var ret_val = objectStrings[strKey];
+
+				if(ret_val === undefined)
+					ret_val = ""
+
+				return ''+ret_val;
 			};
 
 			var functionKeys = function() {
 				// return a string of the concatenated strKey in objectStrings, separated by commas
+				var i = 0;
+				var len = Object.keys(objectStrings).length - 1
+				var ret_val = "";
 
-				return '';
+				for(var prop in objectStrings)
+				 {
+					 ret_val += prop + ""
+
+					 if(i < len)
+					 {
+						 ret_val += ", "
+					 }
+
+					 i++
+				 }
+
+				return ret_val;
 			};
 
 			functionInsert('hello', 'world');
