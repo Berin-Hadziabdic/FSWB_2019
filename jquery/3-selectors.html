@@ -5,7 +5,8 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 	</head>
 	<body>
 		<table border="1">
@@ -55,7 +56,88 @@
 		</table>
 
 		<script type="text/javascript">
-			// place the javascript code that selects the cells and applies the appropriate colors here
+		// I used this link for reference: https://stackoverflow.com/questions/1212500/create-a-css-rule-class-with-jquery-at-runtime for the syntax and general solution
+		// to adding classes to the document programmatically in jquery.
+
+			var blueText = "make this text blue (#0000FF)"
+			var greenText = "make this text green (#00FF00)"
+			var redText =  "make this text red (#FF0000)"
+			var cyanText = "make this text cyan (#00FFFF)"
+			var magentaText = "make this text magenta (#FF00FF)"
+			var yellowText = "make this text yellow (#FFFF00)"
+
+		// Add class programatically 
+		$("<style>")
+    		.prop("type", "text/css")
+    		.html("\
+     		.red {\
+        	color:#FF0000;\
+    		}")
+    		.appendTo("head");
+
+		$("<style>")
+    		.prop("type", "text/css")
+    		.html("\
+     		.green {\
+        	color:#00FF00;\
+    		}")
+    		.appendTo("head");
+
+		$("<style>")
+    		.prop("type", "text/css")
+    		.html("\
+     		.blue {\
+        	color:blue;\
+    		}")
+    		.appendTo("head");
+
+		$("<style>")
+    		.prop("type", "text/css")
+    		.html("\
+     		.magenta {\
+        	color:#FF00FF;\
+    		}")
+    		.appendTo("head");
+
+		$("<style>")
+    		.prop("type", "text/css")
+    		.html("\
+     		.cyan {\
+        	color:#00FFFF;\
+    		}")
+    		.appendTo("head");
+		
+		$("<style>")
+    		.prop("type", "text/css")
+    		.html("\
+     		.yellow {\
+        	color:#FFFF00;\
+    		}")
+    		.appendTo("head");
+
+
+			
+		
+
+
+			// iterate through every td in the body, and set class according to text() inside each td element.
+		$("td").each(function ()
+		{
+			if($(this).text() === greenText)
+				$(this).addClass("green")
+			else if($(this).text() === redText)
+				$(this).addClass("red")
+			else if($(this).text() === cyanText)
+				$(this).addClass("cyan")
+			else if($(this).text() === magentaText)
+				$(this).addClass("magenta")
+			else if($(this).text() === blueText)
+				$(this).addClass("blue")
+			else if($(this).text() === yellowText)
+				$(this).addClass("yellow")
+			
+
+		})
 		</script>
 	</body>
 </html>

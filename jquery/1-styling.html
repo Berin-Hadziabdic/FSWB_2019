@@ -5,12 +5,13 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 		<style type="text/css">
 			.first {
 				width:100px;
 				height:100px;
+
 			}
 
 			.third {
@@ -27,15 +28,27 @@
 
 		<script type="text/javascript">
 			// add 'first' as a class to jQuery('#first') and further specify a background color of gray (#CCCCCC)
+			$('#first').addClass("first");
+			$('#first').css("background-color", "#CCCCCC")
 
 			// make the text in jQuery('#second') bold as well as italic
 
+			$("#second").css("font-weight","bold")
+			$("#second").css("font-style","italic")
+
+
 			// remove 'third' as a class from jQuery('#third') and apply the style of this class directly to the element instead
+			$("#third").removeClass("third")
+			$("#third").css("position","fixed")
+			$("#third").css("top","10px")
+			$("#third").css("right","10px")
+
 
 			var functionFixed = function(strSelector) {
 				// return whether jQuery(strSelector) has a fixed position
 
-				return false;
+
+				return ($(strSelector).css("position") === "fixed")
 			};
 
 			console.log(functionFixed('#first')); // expected: false
@@ -44,7 +57,7 @@
 			var functionClass = function(strSelector, strClass) {
 				// return whether jQuery(strSelector) has strClass (the name of a css class) attached to it
 
-				return false;
+				return $(strSelector).hasClass(strClass);
 			};
 
 			console.log(functionClass('#first', 'first')); // expected: true
