@@ -5,18 +5,48 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<div id="output"></div>
 
 		<script type="text/javascript">
+		
+
+		
 			var functionCreate = function(intWidth, intHeight) {
 				// create a table similar to the previous exercise, but with 'click me' as the text for each cell / td element
 				// when a cell / td element is being clicked, its text should be changed to 'y.x' (see example below)
 				// you have to attach a click listener to each cell / td element and i recommend to make use of the jquery data function
 
-				return jQuery('<table></table>');
+				var boat = $("<table border='1'></table>")
+				var stringer = null
+				var dictionary = {}
+				 
+
+				for(var rowyourboat = 1; rowyourboat <= intHeight; rowyourboat++)
+				{
+					var paddle = $("<tr></tr>")
+
+					for(var tabeldata = 1; tabeldata <= intWidth; tabeldata++)
+					{			
+						var elbowgrease = $("<td>click me</td>")
+						elbowgrease.data("text", rowyourboat + "." + tabeldata)
+					 
+					
+						elbowgrease.click(
+						function()
+						{
+							
+							$(this).text($(this).data("text"))
+						}
+						)
+						paddle.append(elbowgrease)
+					}
+
+					boat.append(paddle)
+				}
+				return boat;
 			};
 
 			jQuery('#output')

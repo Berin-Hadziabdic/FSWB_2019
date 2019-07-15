@@ -5,7 +5,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<div id="output"></div>
@@ -15,8 +15,24 @@
 				// create a table with the width and height and in doing so, set the text to each cell / td element to 'y.x' (see example below)
 				// remember that you were already asked to create a table in the javascript section, but here you are asked to return a jquery object that represents a table
 				// to do this, you will have create jquery elements that represent the tr / td elements and append them systematically to a jquery table element
+				var boat = $("<table border='1'></table>")
+				var stringer = ""
+				 
 
-				return jQuery('<table></table>');
+				for(var rowyourboat = 1; rowyourboat <= intHeight; rowyourboat++)
+				{
+					var paddle = $("<tr></tr>")
+
+					for(var tabeldata = 1; tabeldata <= intWidth; tabeldata++)
+					{
+						stringer = rowyourboat + "." + tabeldata;
+						var elbowgrease = $("<td>" + stringer + "</td>")
+						paddle.append(elbowgrease)
+					}
+
+					boat.append(paddle)
+				}
+				return boat;
 			};
 
 			jQuery('#output')
