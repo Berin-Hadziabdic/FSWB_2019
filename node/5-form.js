@@ -34,3 +34,44 @@ var querystring = require('querystring'); // do not change this line
 // [the server restarts and looses all messages]
 
 // http://localhost:8080/list should return '' in plain text
+
+const port = 8080
+
+
+
+
+const multiPlexer = (req, resp) =>
+ {
+  if(req.url === "/form")
+  {
+    var cookie = req.headers
+    res.writeHead(200, {'Content-Type': 'text/html'});  
+    res.write('<!DOCTYPE html>');
+    res.write('<html>');
+    res.write('<body>');
+    res.write('<form action="/new" method="post">');
+    res.write('<input type="text" name="name">');
+    res.write('<input type="text" name="message">');
+    res.write('<input type="submit" value="submit">');
+    res.write('</form>');
+    res.write('</body>');
+    res.write('</html>');
+    res.end();
+  }
+  else
+  {
+
+  }
+}
+
+
+
+const server = http.createServer(multiPlexer)
+
+server.listen(process.env.PORT || port, (err) => {
+  if (err) {
+    return console.log('something bad happened', err)
+  }
+
+  console.log(`server is listening on ${port}`)
+})

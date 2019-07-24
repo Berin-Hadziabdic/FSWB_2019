@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	</head>
 	<body>
-		<div id="output">output</div>
+		<div id="output"></div>
 
 		<script type="text/javascript">
 
@@ -16,38 +16,53 @@
 			function parse(arg)
 			{
 				var row = [] // this represents a row to be added to the rows object
+				var parseValue = [] //This holds the value to parse in!
 
 				for(var i = 0; i < arg.length; i++)
 				{
-					if(arg[i] != ',' && arg[i] !== '\n')
+					if(arg[i] != ',' && arg[i] !== '\n') // this if ensure we only push chars to value that are not newlines or commas
 					{
-						row.push(arg[i])
+						parseValue.push(arg[i]) //push the char to the parse value
 					}
-					else if( arg[i] == '\n')
+					else if(arg[i] === ',') //if we reach a value delim
 					{
+						row.push(parseValue.join(""))  //add it to the row
+						parseValue = [] 	  // reset parse value to take in next value
+					}
+					else if( arg[i] == '\n') //Anytime we encounter a \n, add the row to our rows object and reset row and parse v to empty array.
+					{
+						row.push(parseValue.join(""))
 						rows.push(row) //adding the parsed row
-						row = []	//reset row		 
+						row = []	//reset row	
+						parseValue =[] //reset parse value	 
 					}
+				}
+				//This if clause ensures we add final rows that don't end in a newline.
+				if(row.length > 0) 
+				{
+					row.push(parseValue.join(""))
+					rows.push(row)
 				}
 			}
 
 			function makeTable(tableElement)
 			{
 				var row_reference;
+				
 
-				for(var row in rows)
+				for(var row in rows) //for every row in global rows data object
 				{
-					let rowElement = document.createElement("TR");
-					row_reference = rows[row]
-					for(var charIndex in row_reference)
-					{
-						let dataElement = document.createElement("TD");
-						dataElement.innerHTML = row_reference[charIndex];
-						rowElement.appendChild(dataElement)
+					var rowElement = document.createElement("TR"); //create a table row
+					row_reference = rows[row] //get the row data object
 
+					for(var rowData in row_reference) //for every data object
+					{
+						var dataElement = document.createElement("TD"); //create html td objext
+						dataElement.innerHTML = row_reference[rowData]; //insert data
+						rowElement.appendChild(dataElement)	//apend to the table row object
 					}
 
-					tableElement.appendChild(rowElement)
+					tableElement.appendChild(rowElement) //append the row to the table body
 				}
 			}
 
@@ -57,16 +72,29 @@
 				// you can either create a string that represents the html and use innerHTML to set it or you can use createElement / appendChild
 				// should this function be called multiple times, the output div should only contain the table of the most recent call
 
-				var table = '<table id="table" border="1"> </table>' //our table
-				document.getElementById('output').innerHTML = table; // insert table into dom
-				table =  document.getElementById('table'); // get table
-				
+				document.getElementById('output').innerHTML ='';		// insert table into dom
+
+
+				var table = document.createElement("div");
+				var tableBody = document.createElement('tbody') 
+				table.innerHTML = "<table border='1'></table>"
+				table = table.firstChild
+
 				parse(strInput) //parse str Input
-				makeTable(table)
+				makeTable(tableBody)
+				
+				table.appendChild(tableBody)
+				document.getElementById('output').appendChild(table) 		// insert table into dom
+				rows = []
+
 			};
 
 
-window.onload = function() { functionCreate('a,b,c\n1,2,3\n')}
+			functionCreate("1.1,1.2");
+			
+
+
+
 			
 			// expected table for functionCreate('a,b\n'):
 			//   <table border="1">

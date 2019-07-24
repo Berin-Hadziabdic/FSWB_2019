@@ -4,6 +4,77 @@ var http = require('http'); // do not change this line
 var url = require('url'); // do not change this line
 var querystring = require('querystring'); // do not change this line
 
+
+
+const port = 8080
+
+
+function parseTableFromUrl(params)
+{
+
+    var paramDictionary = querystring.parse(params)
+    var tableStart = '<table border="1"><tbody>'
+    var tbody = ""
+    var tableEnd   =  "</tbody></table>"
+    for(var prop in paramDictionary)
+    {
+        tbody += "<tr>" + "<td>" + prop + "</td>" + "<td>" + paramDictionary[prop] + "</td>" + "</tr>" 
+    }
+
+    return (tableStart + tbody + tableEnd)
+}
+
+
+
+const multiPlexer = (req, resp) =>
+ {
+  resp.writeHead(200,{'Content-Type':"text/plain"})
+ 
+  if(req.url === "/")
+  {
+     resp.writeHead(200,{'Content-Type':"text/plain"})
+     resp.end('you have accessed the root')
+  }
+ else if(req.url.includes("/test"))
+ {
+    var str  = req.url.substring(6, req.url.length )
+    resp.writeHead(200,{'Content-Type':"text/plain"})
+    resp.end('you have accessed "' + str + '" within test')
+ }
+ else if(req.url.includes("/attributes"))
+ {
+    resp.writeHead(200,{'Content-Type':"text/html"})
+    var urlTrimmed  = req.url.substring(12, req.url.length )
+    var table = '<table border="1"></table>'
+
+    if(urlTrimmed !== "")
+        table = parseTableFromUrl(urlTrimmed)
+    
+    resp.end(table)
+    
+ }
+ else
+ {
+    resp.writeHead(200,{'Content-Type':"text/plain"})
+    resp.end('')
+ }
+
+
+  
+}
+
+
+
+const server = http.createServer(multiPlexer)
+
+server.listen(process.env.PORT || port, (err) => {
+  if (err) {
+    return console.log('something bad happened', err)
+  }
+
+  console.log(`server is listening on ${port}`)
+})
+
 // http://localhost:8080/ should return 'you have accessed the root' in plain text
 
 // http://localhost:8080/test/hello should return 'you have accessed "hello" within test' in plain text

@@ -5,7 +5,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 		<style type="text/css">
 			#draggable {
@@ -22,6 +22,48 @@
 		<div id="draggable"></div>
 
 		<script type="text/javascript">
+		var draggable = false;
+		var dragMe = $("#draggable");
+		
+		dragMe.parent().css({position: 'relative'});
+		dragMe.css({top:0, left: 0, position:'absolute'});
+
+		var mousePositions = {x:0,y:0}
+
+
+		dragMe.mousedown(
+			function(e)
+			{
+			  draggable = true;
+			  x = e.pageX
+			  y = e.pageY
+			  
+			}
+		)
+		dragMe.mouseup(
+			function(e)
+			{
+			  draggable = false
+			})
+		dragMe.mousemove(function(e)
+		{
+			x -= e.pageX
+			y -= e.pageY
+
+			if(draggable)
+			{
+				var x_ =  e.pageX - $(this).offset().left  + x
+				var y_ = e.pageY - $(this).offset().top + y
+				
+
+				dragMe.css({top:y_ ,left:x_ })		
+			}
+
+			x = e.pageX
+			y = e.pageY
+		})
+
+
 			// make jQuery('#draggable') draggable such that you can move it around, just like a window of an application on your computer
 
 			// attach a mousedown listener to jQuery('#draggable') that sets the following global variables: a flag that the element is being dragged, the relative position of the mousedown event
@@ -33,5 +75,6 @@
 
 			// attach a mouseup listener to jQuery(document) that resets the global is-being-dragged flag, such that the dragging will stop once you lift the mouse button
 		</script>
+
 	</body>
 </html>
