@@ -13,18 +13,24 @@ var port = 8080;
 
 const multiPlexer = (req, resp) =>
  {
-  var path = req.url
-  path = path.substr(1, path.length)
+  var path = req.url.substr(1,req.url.length)
   
-  dns.lookup(path, null, (err, address, family) =>
-    {
-        resp.end(address)
-    }
-  )
+  if(req.url != "/error")
+  {
+    dns.lookup(path, (err, address, family) =>
+     {
+          resp.writeHead(200,{'Content-Type':"text/plain"})
+          resp.end("");
+     })
+  }
+  else
+  {
+    resp.writeHead(200,{'Content-Type':"text/plain"})
+    resp.end("error")
+  }
   
 
 }
-
 
 
 const server = http.createServer(multiPlexer)

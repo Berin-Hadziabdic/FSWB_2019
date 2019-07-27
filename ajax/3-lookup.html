@@ -46,6 +46,45 @@
 			// when somebody selects an option in the choice selection element, the script should make a get request to: http://cs465.oregonctf.org/playground/ajax/lookup.json?strName=max
 			// the data that is being received by this query is in the json format and might look like: { 'strFirst':'max','strLast':'baum','strGender':'male','strRandom':'3BLJEkKk' }
 			// this received data should subsequently be used to set the first textbox, the last textbox, the gender radio button as well as the random textbox
+		
+		document.getElementById("choice").onchange = function(){
+			var selections = document.getElementById( "choice" );
+			var selection = selections.options[selections.selectedIndex].value
+			
+			var xhr = new XMLHttpRequest()
+			xhr.open("GET","http://cs465.oregonctf.org/playground/ajax/lookup.json?strName=" + selection)
+			xhr.onreadystatechange = function()
+			{
+				var first = document.getElementById("first")
+				var last = document.getElementById("last")
+				var random = document.getElementById("random")
+				var genderSelections = document.getElementsByName("gender")
+				var respJSON = null;
+				
+				if(xhr.status === 200 && xhr.readyState === 4)
+				{
+					respJSON = JSON.parse(xhr.response)
+					first.value = respJSON.strFirst
+					last.value = respJSON.strLast
+					random.value = respJSON.strRandom
+
+					for(var gender in genderSelections)
+					{
+						if(genderSelections[gender].value === respJSON.strGender)
+						{
+							genderSelections[gender].checked = true
+						}
+						else
+						{
+							genderSelections[gender].checked = false
+						}
+
+					}
+				}
+			}
+			xhr.send();
+		}
+		
 		</script>
 	</body>
 </html>

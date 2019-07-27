@@ -18,6 +18,29 @@
 			// when somebody enters 'the input text' into the input textbox and clicks the submit button, the script should make a get request to: http://cs465.oregonctf.org/playground/ajax/lorem.txt?strInput=the%20input%20text
 			// the data that is being received by this query is in the text format and might look like: 'received:the input text\ncalculated:eH2wO8kG'
 			// this received data should subsequently set as the content of the output element as follows: 'received:the input text\ncalculated:eH2wO8kG'
+			function clicker()
+			{
+				var req = new XMLHttpRequest();
+				var output = document.getElementById("output")
+				var inputmsg = document.getElementById("input").value;
+
+				req.open("GET", "http://cs465.oregonctf.org/playground/ajax/lorem.txt?strInput=" + inputmsg)
+				req.onreadystatechange = function()
+				{
+					if(req.status === 200 && req.readyState === 4)
+					{
+						calculated = req.responseText;
+						output.innerHTML = calculated;
+
+					}
+				}
+			
+				var calculated = null;
+			
+				req.send(inputmsg)
+			}
+
+			document.getElementById("submit").addEventListener("click",clicker)
 		</script>
 	</body>
 </html>
