@@ -11,3 +11,53 @@ var express = require('express'); // do not change this line
 // http://localhost:8080/cookie should return 'i gave you a cookie' in plain text and set 'hello=world' as a cookie
 
 // http://localhost:8080/check should return 'yes' / 'no' in plain text depending on whether the browser has the 'hello' cookie
+
+const server = express()
+const port = process.env.PORT || 9000
+
+server.get("/missing",(req,res) => {
+        res.setHeader("content-type", "text/plain")
+        res.status(404)
+        res.send('your princess is in another castle')
+    }
+)
+
+server.get("/redirect",(req,res) => {
+    res.setHeader("content-type", "text/plain")
+    res.status(302)
+    res.redirect('/redirected')
+}
+)
+
+server.get("/cache",(req,res) => {
+    res.setHeader("content-type", "text/plain")
+    res.setHeader("Cache-Control", "max-age=86400")
+    res.send('cache this resource')
+}
+)
+
+server.get("/cookie",(req,res) => {
+    res.setHeader("content-type", "text/plain")
+    res.setHeader("set-cookie", "hello=world")
+
+    res.send('i gave you a cookie')
+}
+)
+
+server.get("/check",(req,res) => {
+    res.setHeader("content-type", "text/plain")
+    res.status(200)
+
+   if( req.headers.cookie !== undefined && req.headers.cookie.includes("hello"))
+    res.send('yes')
+   else
+    res.send("no")
+}
+)
+
+
+
+
+
+
+server.listen(port)

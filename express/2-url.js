@@ -30,3 +30,59 @@ var express = require('express'); // do not change this line
 //       </table>
 //     </body>
 //   </html>
+
+const server = express()
+const port = process.env.PORT || 8080
+
+server.get("/",(req,res) => {
+        res.setHeader("content-type", "text/plain")
+        res.send('you have accessed the root')
+    }
+)
+
+server.get(/test/, (req,res) => {
+    var url = req.originalUrl
+    url = url.split('/')
+
+
+    res.setHeader("content-type", "text/plain")
+    res.send('you have accessed ' +"\"" + url[2] +"\"" + " within test")
+  }
+)
+
+
+function makeTable(params)
+{
+    var start = "<table border=\"1\">"
+    var end =   "</table>"
+    var trs = ""
+    for(var param in params)
+    {
+        trs += "<tr><td>" + param + "</td>" + "<td>" + params[param] + "</td></td>"
+    }
+
+    return (start + trs + end)
+}
+
+server.get(/attributes/, (req,res) => {
+    var url = req.originalUrl
+    url = url.split('/')
+    var params = req.query
+    var table = makeTable(params)
+
+    var start =  "<!DOCTYPE html><html><body>"
+    var end =  "</body></html>"
+
+    res.setHeader("content-type", "text/html")
+    res.send(start + table + end)
+  }
+)
+
+server.get("/unexpected", (req,res) => {
+ 
+    res.send("")
+  }
+)
+
+
+server.listen(port)
