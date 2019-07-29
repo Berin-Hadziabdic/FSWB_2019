@@ -38,3 +38,44 @@ var parser = require('body-parser'); // do not change this line
 // [the server restarts and looses all messages]
 
 // http://localhost:8080/list should return '' in plain text
+
+server.use(
+    session(
+     {
+        'store': new session.MemoryStore(),
+        'history': '',
+        'secret':'secret',
+        'resave': false,
+        'saveUninitialized': false,
+        'cookie': { 'maxAge': 86400000}
+
+     }
+    )
+)
+
+server.get( "/form", (req,res) => {
+     res.status(200);
+   
+     res.set({
+   	'Content-Type': 'text/html'
+     });
+   
+    res.write('<!DOCTYPE html>');
+    res.write('<html>');
+   	res.write('<body>');
+   	res.write('<form action="/new" method="post">');
+    res.write('<input type="text" name="name">');
+    res.write('<input type="text" name="message">');
+	res.write('<input type="submit" value="submit">');
+    res.write('</form>');
+    res.write('</body>');
+    res.write('</html>');
+    res.end();
+       
+    }
+)
+
+
+
+
+server.listen(port)

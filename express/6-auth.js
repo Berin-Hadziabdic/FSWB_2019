@@ -13,3 +13,21 @@ var strategy = require('passport-http'); // do not change this line
 // http://localhost:8080/world should return 'only accessible when logged in' in plain text if the user is authenticated, otherwise it should prompt for the username and password
 
 // http://localhost:8080/test should return 'only accessible when logged in' in plain text if the user is authenticated, otherwise it should prompt for the username and password
+const server = express()
+const port = process.env.PORT || 9000
+
+server.get("/hello",(req,res) => {
+        res.setHeader("content-type", "text/plain")
+        res.status(200)
+        res.send('accessible to everyone')
+    }
+)
+
+server.get("/world",(req,res) => {
+    
+}
+)
+
+server.listen(port)
+
+
