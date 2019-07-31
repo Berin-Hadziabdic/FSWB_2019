@@ -2,9 +2,12 @@
 
 var express = require('express'); // do not change this line
 var parser = require('body-parser'); // do not change this line
+const server = express()
+const port = process.env.PORT || 9000
+var messages = {}
+server.use(parser.json())
 
 // preface: use the body-parser middleware that helps you retrieve and parse the post data from the form
-
 // http://localhost:8080/form should return the form as shown below
 //   res.status(200);
 //   
@@ -39,19 +42,9 @@ var parser = require('body-parser'); // do not change this line
 
 // http://localhost:8080/list should return '' in plain text
 
-server.use(
-    session(
-     {
-        'store': new session.MemoryStore(),
-        'history': '',
-        'secret':'secret',
-        'resave': false,
-        'saveUninitialized': false,
-        'cookie': { 'maxAge': 86400000}
 
-     }
-    )
-)
+
+server.use(parser.urlencoded())
 
 server.get( "/form", (req,res) => {
      res.status(200);
@@ -75,6 +68,40 @@ server.get( "/form", (req,res) => {
     }
 )
 
+server.get( "/list", (req,res) => {
+    res.status(200);
+  
+    res.set({
+      'Content-Type': 'text/plain'
+    });
+  
+    var resp = ""
+   for(var name in messages)
+      resp += "\n" + name + ": " + messages[name]
+
+    resp = resp.substring(1,1000000)
+    
+    res.end(resp);
+      
+   }
+)
+
+
+
+
+server.post( "/new", function (req,res){
+   
+    res.status(200);
+    res.set({ 'Content-Type': 'text/plain'});
+
+    var body = req.body
+
+  
+    messages[body.name] = body.message
+    
+    res.end("thank you for your message");
+   }
+)
 
 
 
